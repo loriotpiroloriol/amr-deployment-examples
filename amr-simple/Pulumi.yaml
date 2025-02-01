@@ -1,0 +1,48 @@
+name: amr-simple
+description: Simple Deployment of AMR
+runtime: yaml
+
+resources:
+  # Create an Azure Resource Group
+  resourceGroup:
+    type: azure-native:resources:ResourceGroup
+    name: "rg-amr-deployment"
+    properties:
+      location: ${azure-native:location}
+  
+  # Create the ARM Cluster
+  redisCluster:
+    type: "azure-native:cache/v20240901preview:RedisEnterprise"
+    properties:
+      sku:
+        name: ${skuName}
+      location: ${azure-native:location}
+      identity:
+        type: None
+      minimumTlsVersion: "1.2"
+      resourceGroupName: ${resourceGroup.name}
+    options:
+        dependsOn:
+          - ${resourceGroup}
+  
+  #Create the ARM Database
+  redisDb:
+    type: "azure-native:cache/v20240901preview:Database"
+    properties:
+      clusterName: ${redisCluster.name}
+      clusteringPolicy: ${clusteringPolicy}
+      databaseName: default
+      evictionPolicy: ${evictionPolicy}
+      port: 10000
+      resourceGroupName: ${resourceGroup.name}
+      persistence:
+        aofEnabled: false
+        rdbEnabled: false
+    options:
+      dependsOn:
+        - ${redisCluster}
+      
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: azure-yaml
