@@ -1,0 +1,38 @@
+# Ignore editor-specific files
+.idea/
+.vscode/
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore Terraform files
+*.tfstate
+*.tfstate.backup
+.terraform/
+
+# Ignore Pulumi files
+Pulumi.*.yaml
+
+# Ignore logs and temp files
+*.log
+*.tmp
+
+# Ignore compiled files
+*.exe
+*.dll
+*.so
+*.dylib
+*.o
+*.a
+*.out
+*.class
+
+# Ignore Python virtual environment
+venv/
+__pycache__/
+*.pyc
+
+# Ignore Node.js dependencies
+node_modules/
+package-lock.json
