@@ -52,7 +52,7 @@ az account set --subscription "<your-subscription-id>"
 ### 3️⃣ Deploy Using Your Preferred IaC Tool
 #### Terraform
 
-Set variable values in `terraform/terrafrom.tfvars` (subscription id etc.)
+Set variable values in `terraform/terraform.tfvars` (subscription id etc.)
 
 ```bash
 cd terraform
